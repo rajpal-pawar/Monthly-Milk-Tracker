@@ -30,6 +30,10 @@ const translations = {
     pendingStatus: 'Pending',
     markPaid: 'Mark as Paid',
     markPending: 'Mark as Pending',
+    markAllMonth: 'Mark entire month',
+    unmarkAllMonth: 'Unmark entire month',
+    confirmMarkAll: 'Mark all past days of this month?',
+    confirmUnmarkAll: 'Clear all records for this month?',
     totalMilk: 'Total Milk This Month',
     settings: 'Settings',
     pricePerLiter: 'Price per Liter (₹)',
@@ -76,6 +80,10 @@ const translations = {
     pendingStatus: 'बाकी है',
     markPaid: 'भुगतान करें',
     markPending: 'बाकी करें',
+    markAllMonth: 'पूरा महीना चिह्नित करें',
+    unmarkAllMonth: 'पूरा महीना साफ़ करें',
+    confirmMarkAll: 'क्या इस महीने के सभी पिछले दिनों को चिह्नित करें?',
+    confirmUnmarkAll: 'क्या इस महीने के सभी रिकॉर्ड साफ़ करें?',
     totalMilk: 'इस महीने कुल दूध',
     settings: 'सेटिंग्स',
     pricePerLiter: 'प्रति लीटर कीमत (₹)',
@@ -121,6 +129,10 @@ const translations = {
     pendingStatus: 'प्रलंबित',
     markPaid: 'पैसे दिले',
     markPending: 'पैसे बाकी',
+    markAllMonth: 'संपूर्ण महिना खूण करा',
+    unmarkAllMonth: 'संपूर्ण महिना पुसून टाका',
+    confirmMarkAll: 'या महिन्यातील सर्व मागील दिवसांची नोंद करायची का?',
+    confirmUnmarkAll: 'या महिन्यातील सर्व नोंदी पुसून टाकायच्या का?',
     totalMilk: 'या महिन्यात एकूण दूध',
     settings: 'सेटिंग्ज',
     pricePerLiter: 'प्रति लिटर किंमत (₹)',
@@ -768,6 +780,46 @@ export default function Home() {
           </div>
           <div style={{ marginTop: '16px', fontSize: '0.8rem', textAlign: 'center', color: 'var(--text-muted)' }}>
             {t.clickEdit}
+          </div>
+          <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+            <button
+              onClick={() => {
+                if (window.confirm(t.confirmMarkAll)) {
+                  const updatedEntries = { ...entries };
+                  calendarDays.forEach((day) => {
+                    if (day && day.date <= today) {
+                      updatedEntries[day.date] = { date: day.date, amount: defaultAmount, status: 'confirmed' };
+                    }
+                  });
+                  setEntries(updatedEntries);
+                  localStorage.setItem('daily-doodh-entries', JSON.stringify(updatedEntries));
+                  calculateMonthTotal(updatedEntries, viewDate);
+                }
+              }}
+              className="clay-btn"
+              style={{ flex: 1, padding: '12px', fontSize: '0.9rem', background: 'var(--color-primary)', color: darkMode ? '#fff' : '#1f2937' }}
+            >
+              ✅ {t.markAllMonth}
+            </button>
+            <button
+              onClick={() => {
+                if (window.confirm(t.confirmUnmarkAll)) {
+                  const updatedEntries = { ...entries };
+                  calendarDays.forEach((day) => {
+                    if (day) {
+                      delete updatedEntries[day.date];
+                    }
+                  });
+                  setEntries(updatedEntries);
+                  localStorage.setItem('daily-doodh-entries', JSON.stringify(updatedEntries));
+                  calculateMonthTotal(updatedEntries, viewDate);
+                }
+              }}
+              className="clay-btn"
+              style={{ flex: 1, padding: '12px', fontSize: '0.9rem', background: 'var(--card-bg)' }}
+            >
+              ❌ {t.unmarkAllMonth}
+            </button>
           </div>
         </ClayCard>
       )}
