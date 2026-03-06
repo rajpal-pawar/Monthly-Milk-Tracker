@@ -35,6 +35,7 @@ const translations = {
     confirmMarkAll: 'Mark all past days of this month?',
     confirmUnmarkAll: 'Clear all records for this month?',
     totalMilk: 'Total Milk This Month',
+    proteinConsumed: 'Protein Consumed',
     settings: 'Settings',
     pricePerLiter: 'Price per Liter (₹)',
     defaultAmount: 'Default Amount (L)',
@@ -85,6 +86,7 @@ const translations = {
     confirmMarkAll: 'क्या इस महीने के सभी पिछले दिनों को चिह्नित करें?',
     confirmUnmarkAll: 'क्या इस महीने के सभी रिकॉर्ड साफ़ करें?',
     totalMilk: 'इस महीने कुल दूध',
+    proteinConsumed: 'कुल प्रोटीन',
     settings: 'सेटिंग्स',
     pricePerLiter: 'प्रति लीटर कीमत (₹)',
     defaultAmount: 'सामान्य मात्रा (L)',
@@ -134,6 +136,7 @@ const translations = {
     confirmMarkAll: 'या महिन्यातील सर्व मागील दिवसांची नोंद करायची का?',
     confirmUnmarkAll: 'या महिन्यातील सर्व नोंदी पुसून टाकायच्या का?',
     totalMilk: 'या महिन्यात एकूण दूध',
+    proteinConsumed: 'घेतलेले प्रोटीन',
     settings: 'सेटिंग्ज',
     pricePerLiter: 'प्रति लिटर किंमत (₹)',
     defaultAmount: 'सामान्य प्रमाण (L)',
@@ -876,6 +879,38 @@ export default function Home() {
                 <div style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>{t.totalMilk}</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary)' }}>
                   {monthTotal} Liters
+                </div>
+              </div>
+
+              {/* Protein Tracker */}
+              <div style={{
+                marginTop: '16px',
+                padding: '16px',
+                background: 'rgba(0,0,0,0.03)',
+                borderRadius: '16px',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    💪 {t.proteinConsumed}
+                  </div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                    {monthTotal * 34 > 1000 ? (monthTotal * 34 / 1000).toFixed(2) + ' kg' : (monthTotal * 34).toFixed(0) + ' g'}
+                  </div>
+                </div>
+                {/* Progress bar visual */}
+                <div style={{ width: '100%', height: '8px', background: 'rgba(0,0,0,0.05)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{
+                    height: '100%',
+                    width: `${Math.min((monthTotal / 31) * 100, 100)}%`,
+                    background: 'linear-gradient(90deg, #f59e0b, #ef4444)',
+                    borderRadius: '4px',
+                    transition: 'width 1s ease-out'
+                  }} />
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '8px', textAlign: 'left' }}>
+                  *Calculated at ~34g protein per liter
                 </div>
               </div>
             </div>
