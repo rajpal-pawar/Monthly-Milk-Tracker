@@ -177,8 +177,8 @@ export default function Home() {
   // Data State
   const [entries, setEntries] = useState<Record<string, Entry>>({});
   const [payments, setPayments] = useState<Record<string, boolean>>({});
-  const [pricePerLiter, setPricePerLiter] = useState<number>(60); // Default 60
-  const [defaultAmount, setDefaultAmount] = useState<number>(1); // Default 1L
+  const [pricePerLiter, setPricePerLiter] = useState<number | string>(60); // Default 60
+  const [defaultAmount, setDefaultAmount] = useState<number | string>(1); // Default 1L
   const [monthTotal, setMonthTotal] = useState<number>(0);
   const [showCow, setShowCow] = useState(false);
 
@@ -404,9 +404,14 @@ export default function Home() {
   /* Removed toggleLanguage function since it's now in settings */
 
   const handleDefaultAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newAmount = parseFloat(e.target.value);
-    if (!isNaN(newAmount) && newAmount > 0) {
-      setDefaultAmount(newAmount);
+    const val = e.target.value;
+    if (val === '') {
+      setDefaultAmount('');
+      return;
+    }
+    const newAmount = parseFloat(val);
+    if (!isNaN(newAmount) && newAmount >= 0) {
+      setDefaultAmount(val);
       localStorage.setItem('daily-doodh-default', String(newAmount));
     }
   };
@@ -577,7 +582,7 @@ export default function Home() {
                 <div style={{ textAlign: 'center', background: 'rgba(0,0,0,0.03)', padding: '10px', borderRadius: '12px' }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.statsDashboard.estCost}</div>
                   <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)' }}>
-                    ₹{monthTotal * pricePerLiter}
+                    ₹{monthTotal * (Number(pricePerLiter) || 0)}
                   </div>
                 </div>
               </div>
@@ -590,7 +595,7 @@ export default function Home() {
               <div style={{ transform: 'scale(1.05)', transition: 'transform 0.2s' }}>
                 <BubblyButton
                   onClick={() => {
-                    saveEntry(today, 'confirmed', defaultAmount);
+                    saveEntry(today, 'confirmed', Number(defaultAmount) || 0);
                     setShowCow(true);
                     setTimeout(() => setShowCow(false), 3000);
                   }}
@@ -729,7 +734,7 @@ export default function Home() {
               if (entry) {
                 if (entry.amount > 0) {
                   // Check if abnormal amount
-                  if (entry.amount !== defaultAmount) {
+                  if (entry.amount !== (Number(defaultAmount) || 0)) {
                     bg = 'var(--text-main)'; // Highlight abnormal
                     // If bg is text-main (Dark in Light Mode, Light in Dark Mode), invert text
                     textColor = darkMode ? '#000' : '#fff';
@@ -791,7 +796,7 @@ export default function Home() {
                   const updatedEntries = { ...entries };
                   calendarDays.forEach((day) => {
                     if (day && day.date <= today) {
-                      updatedEntries[day.date] = { date: day.date, amount: defaultAmount, status: 'confirmed' };
+                      updatedEntries[day.date] = { date: day.date, amount: Number(defaultAmount) || 0, status: 'confirmed' };
                     }
                   });
                   setEntries(updatedEntries);
@@ -855,7 +860,7 @@ export default function Home() {
                 <div style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>{t.estBill}</div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
                   <div style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--text-main)' }}>
-                    ₹{monthTotal * pricePerLiter}
+                    ₹{monthTotal * (Number(pricePerLiter) || 0)}
                   </div>
                   <button
                     onClick={togglePaymentStatus}
@@ -925,8 +930,13 @@ export default function Home() {
                   type="number"
                   value={pricePerLiter}
                   onChange={(e) => {
-                    const newPrice = parseFloat(e.target.value);
-                    setPricePerLiter(newPrice);
+                    const val = e.target.value;
+                    if (val === '') {
+                      setPricePerLiter('');
+                      return;
+                    }
+                    const newPrice = parseFloat(val);
+                    setPricePerLiter(val);
                     localStorage.setItem('daily-doodh-price', String(newPrice));
                   }}
                   style={{
@@ -1138,7 +1148,7 @@ export default function Home() {
           <div style={{ width: '100%', maxWidth: '400px' }}>
             <ClayCard title={`${t.editTitle}: ${editingDate}`}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
-                <BubblyButton onClick={() => saveEntry(editingDate!, 'confirmed', defaultAmount)}>
+                <BubblyButton onClick={() => saveEntry(editingDate!, 'confirmed', Number(defaultAmount) || 0)}>
                   {t.yesOption} ({defaultAmount}L)
                 </BubblyButton>
                 <BubblyButton onClick={() => saveEntry(editingDate!, 'rejected', 0)} variant="secondary">
