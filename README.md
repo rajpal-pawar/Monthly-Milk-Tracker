@@ -33,10 +33,6 @@ This project is built with modern web technologies:
 
 ## Screenshots
 
-<p align="center" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-  <img src="snapshots/ss1.png" width="200" alt="App Screenshot 1">
-  <img src="snapshots/ss2.png" width="200" alt="App Screenshot 2">
-  <img src="snapshots/ss3.png" width="200" alt="App Screenshot 3">
-  <img src="snapshots/ss4.png" width="200" alt="App Screenshot 4">
-  <img src="snapshots/ss5.png" width="200" alt="App Screenshot 5">
-</p>
+| Calendar View | Edit Entry | Stats & Settings |
+|:---:|:---:|:---:|
+| <img src="snapshots/ss2.png" width="250" alt="Calendar View"> | <img src="snapshots/ss3.png" width="250" alt="Edit Entry"> | <img src="snapshots/ss4.png" width="250" alt="Stats & Settings"> |
