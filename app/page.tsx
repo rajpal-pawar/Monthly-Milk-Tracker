@@ -824,7 +824,7 @@ export default function Home() {
                 }
               }}
               className="clay-btn"
-              style={{ flex: 1, padding: '12px', fontSize: '0.9rem', background: 'var(--card-bg)' }}
+              style={{ flex: 1, padding: '12px', fontSize: '0.9rem', background: 'var(--card-bg)', color: 'var(--text-main)' }}
             >
               ❌ {t.unmarkAllMonth}
             </button>
