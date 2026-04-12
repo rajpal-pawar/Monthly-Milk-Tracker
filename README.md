@@ -30,3 +30,13 @@ This project is built with modern web technologies:
 - [React 18](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - CSS Modules & Vanilla CSS (for Claymorphism effects)
+
+## Screenshots
+
+<p align="center" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+  <img src="snapshots/ss1.png" width="200" alt="App Screenshot 1">
+  <img src="snapshots/ss2.png" width="200" alt="App Screenshot 2">
+  <img src="snapshots/ss3.png" width="200" alt="App Screenshot 3">
+  <img src="snapshots/ss4.png" width="200" alt="App Screenshot 4">
+  <img src="snapshots/ss5.png" width="200" alt="App Screenshot 5">
+</p>
