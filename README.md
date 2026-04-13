@@ -33,6 +33,14 @@ This project is built with modern web technologies:
 
 ## Screenshots
 
-| Calendar View | Edit Entry | Stats & Settings |
-|:---:|:---:|:---:|
-| <img src="snapshots/ss2.png" width="250" alt="Calendar View"> | <img src="snapshots/ss3.png" width="250" alt="Edit Entry"> | <img src="snapshots/ss4.png" width="250" alt="Stats & Settings"> |
+### Light Mode
+
+| Home View | Calendar View | Edit Entry | Stats & Settings |
+|:---:|:---:|:---:|:---:|
+| <img src="snapshots/light_home.png" width="200" alt="Home View Light"> | <img src="snapshots/light_calendar.png" width="200" alt="Calendar View Light"> | <img src="snapshots/light_edit.png" width="200" alt="Edit Entry Light"> | <img src="snapshots/light_stats.png" width="200" alt="Stats Light"> |
+
+### Dark Mode
+
+| Home View | Calendar View | Edit Entry | Stats & Settings |
+|:---:|:---:|:---:|:---:|
+| <img src="snapshots/dark_home.png" width="200" alt="Home View Dark"> | <img src="snapshots/dark_calendar.png" width="200" alt="Calendar View Dark"> | <img src="snapshots/dark_edit.png" width="200" alt="Edit Entry Dark"> | <img src="snapshots/dark_stats.png" width="200" alt="Stats Dark"> |
