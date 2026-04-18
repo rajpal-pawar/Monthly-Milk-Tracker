@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Fredoka } from "next/font/google";
 import "./globals.css";
+
+const fredoka = Fredoka({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-fredoka",
+});
 
 export const metadata: Metadata = {
   title: "Daily Doodh",
@@ -20,6 +27,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fdfbf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#1f2937" },
+  ],
 };
 
 export default function RootLayout({
@@ -29,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={fredoka.variable}>
         {children}
       </body>
     </html>
